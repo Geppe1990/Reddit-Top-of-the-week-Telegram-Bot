@@ -22,17 +22,46 @@ def main():
     bot = botogram.create(data["telegram_token"])
 
     hot_limit = 5
-    subreddit_list = ['redditdev', 'Nootropics']
+    subreddit_list = [
+        'Affiliatemarketing',
+        'DigitalMarketing',
+        'digitalnomad',
+        'DIY',
+        'Entrepreneur',
+        'eupersonalfinance',
+        'EuropeFIRE',
+        'financialindependence',
+        'freelance',
+        'Frontend',
+        'growmybusiness',
+        'homeautomation',
+        'ImpresaItalia',
+        'Italia',
+        'ItalyInformatica',
+        'javascript',
+        'LifeProTips',
+        'maker',
+        'personalfinance',
+        'productivity',
+        'remotework',
+        'selfimprovement',
+        'SideProject',
+        'vandwellers',
+        'web_design',
+        'webdev',
+        'whatsinthebag',
+        'WorkOnline',
+    ]
+
     for sr in subreddit_list:
         subreddit = reddit.subreddit(sr)
         message = "<b>"+sr.upper()+"</b>\n\n"
         # Mi ricavo i post hot che non sono stickied
         top_ten = [p for p in subreddit.hot(limit=100) if not p.stickied][:hot_limit]
-
         for post in top_ten:
             message += "<a href='"+post.url+"'>"+post.title+"</a>\n<i>"+str(dt.datetime.fromtimestamp(post.created))+"</i>\n\n"
 
-        bot.chat(data["telegram_id"]).send(message, preview=False)
+        bot.chat(data["telegram_id"]).send(message, preview=False, syntax="html")
 
 
 if __name__ == '__main__':
