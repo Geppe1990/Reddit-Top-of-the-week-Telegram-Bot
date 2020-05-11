@@ -59,7 +59,7 @@ def main():
         # Mi ricavo i post hot che non sono stickied
         top_ten = [p for p in subreddit.hot(limit=100) if not p.stickied][:hot_limit]
         for post in top_ten:
-            message += "<a href='"+post.url+"'>"+post.title+"</a>\n<i>"+str(dt.datetime.fromtimestamp(post.created))+"</i>\n\n"
+            message += "<a href='"+post.shortlink+"'>"+post.title+"</a>\n<i>"+str(dt.datetime.fromtimestamp(post.created))+"</i>\n\n"
 
         bot.chat(data["telegram_id"]).send(message, preview=False, syntax="html")
 
