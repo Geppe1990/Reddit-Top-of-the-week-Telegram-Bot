@@ -4,18 +4,18 @@ import datetime as dt
 
 
 def main():
-    client_id = ''
-    client_secret = ''
-    user_agent = 'infoSender'
-    username = ''
-    password = ''
+    data = {}
+    with open("data.txt") as f:
+        for line in f:
+            key, value = line.strip().split(':')
+            data[key] = value
 
     reddit = praw.Reddit(
-        client_id=client_id,
-        client_secret=client_secret,
-        user_agent=user_agent,
-        username=username,
-        password=password
+        client_id=data["client_id"],
+        client_secret=data["client_secret"],
+        user_agent=data["user_agent"],
+        username=data["username"],
+        password=data["password"]
     )
 
 
