@@ -7,8 +7,8 @@ def main():
     client_id = ''
     client_secret = ''
     user_agent = 'infoSender'
-    username=''
-    password=''
+    username = ''
+    password = ''
 
     reddit = praw.Reddit(
         client_id=client_id,
