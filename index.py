@@ -4,7 +4,19 @@ import datetime as dt
 
 
 def main():
-    print("python main function")
+    client_id = ''
+    client_secret = ''
+    user_agent = 'infoSender'
+    username=''
+    password=''
+
+    reddit = praw.Reddit(
+        client_id=client_id,
+        client_secret=client_secret,
+        user_agent=user_agent,
+        username=username,
+        password=password
+    )
 
 
 if __name__ == '__main__':
