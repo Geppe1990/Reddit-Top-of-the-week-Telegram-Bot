@@ -1,57 +1,35 @@
 import praw
 import datetime as dt
 import botogram
+from numpy import loadtxt
+
+data = {}
+
+with open("data.txt") as f:
+    for line in f:
+        key, value = line.strip().split(': ')
+        data[key] = value
+
+reddit = praw.Reddit(
+    client_id=data["reddit_client_id"].strip(),
+    client_secret=data["reddit_client_secret"].strip(),
+    user_agent=data["reddit_user_agent"].strip(),
+    username=data["reddit_username"].strip(),
+    password=data["reddit_password"].strip()
+)
+
+bot = botogram.create(data["telegram_token"])
 
 
-def main():
-    data = {}
-
-    with open("data.txt") as f:
-        for line in f:
-            key, value = line.strip().split(': ')
-            data[key] = value
-
-    reddit = praw.Reddit(
-        client_id=data["reddit_client_id"].strip(),
-        client_secret=data["reddit_client_secret"].strip(),
-        user_agent=data["reddit_user_agent"].strip(),
-        username=data["reddit_username"].strip(),
-        password=data["reddit_password"].strip()
-    )
-
-    bot = botogram.create(data["telegram_token"])
-
+@bot.command("update")
+def update_command(chat, message, args):
     hot_limit = 5
-    subreddit_list = [
-        'Affiliatemarketing',
-        'DigitalMarketing',
-        'digitalnomad',
-        'DIY',
-        'Entrepreneur',
-        'eupersonalfinance',
-        'EuropeFIRE',
-        'financialindependence',
-        'freelance',
-        'Frontend',
-        'growmybusiness',
-        'homeautomation',
-        'ImpresaItalia',
-        'Italia',
-        'ItalyInformatica',
-        'javascript',
-        'LifeProTips',
-        'maker',
-        'personalfinance',
-        'productivity',
-        'remotework',
-        'selfimprovement',
-        'SideProject',
-        'vandwellers',
-        'web_design',
-        'webdev',
-        'whatsinthebag',
-        'WorkOnline',
-    ]
+    subreddit_list = []
+
+    with open("channels.txt") as file:
+        subreddit_list = file.read().replace('\n', '').split(',')
+
+    subreddit_list = list(filter(None, subreddit_list))
 
     for sr in subreddit_list:
         subreddit = reddit.subreddit(sr)
@@ -65,4 +43,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    bot.run()
