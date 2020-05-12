@@ -39,7 +39,7 @@ def update_command(chat, message, args):
         for post in top_ten:
             message += "<a href='"+post.shortlink+"'>"+post.title+"</a>\n<i>"+str(dt.datetime.fromtimestamp(post.created))+"</i>\n\n"
 
-        bot.chat(data["telegram_id"]).send(message, preview=False, syntax="html")
+        chat.send(message, preview=False, syntax="html")
 
 
 if __name__ == '__main__':
