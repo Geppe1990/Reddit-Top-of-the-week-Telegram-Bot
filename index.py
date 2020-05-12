@@ -1,7 +1,6 @@
 import praw
 import datetime as dt
 import botogram
-from numpy import loadtxt
 
 data = {}
 
@@ -34,9 +33,9 @@ def update_command(chat, message, args):
     for sr in subreddit_list:
         subreddit = reddit.subreddit(sr)
         message = "<b>"+sr.upper()+"</b>\n\n"
-        # Mi ricavo i post hot che non sono stickied
-        top_ten = [p for p in subreddit.hot(limit=100) if not p.stickied][:hot_limit]
-        for post in top_ten:
+        top_posts = [p for p in subreddit.top('week')]
+
+        for post in top_posts[:5]:
             message += "<a href='"+post.shortlink+"'>"+post.title+"</a>\n<i>"+str(dt.datetime.fromtimestamp(post.created))+"</i>\n\n"
 
         chat.send(message, preview=False, syntax="html")
