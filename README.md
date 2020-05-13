@@ -11,3 +11,9 @@ reddit_password:
 telegram_token:
 ```
     
+## Activating venv in linux environment
+- cd in the folder of the project
+- launch ```source venv/bin/activate```
+- launch ```which python``` to see if you are in the correct location
+- launch ```pip install -r requirements.txt```
+- launch ```deactivate``` to exit 
